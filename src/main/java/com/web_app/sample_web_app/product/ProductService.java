@@ -1,6 +1,6 @@
 package com.web_app.sample_web_app.product;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -8,9 +8,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductService {
 
-    List<Product> products = Arrays.asList(new Product(1, "Tlaja", 2500), new Product(2, "Iphone", 7500), new Product(3, "Mac book pro", 12000));
+    private final List<Product> products = new ArrayList<>();
+
+    public ProductService() {
+        this.products.add(new Product(1, "Tlaja", 2500));
+        this.products.add(new Product(2, "Iphone", 7500));
+        this.products.add(new Product(3, "MacBookPro", 12500));
+    }
 
     public List<Product> getProducts() {
         return products;
+    }
+
+    public Product getProductById(int productId) {
+        return products.stream()
+                .filter(p -> p.getId() == productId)
+                .findFirst()
+                .get();
+    }
+
+    public void addProduct(Product product) {
+        products.add(product);
     }
 }
