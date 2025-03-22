@@ -1,33 +1,65 @@
 package com.web_app.sample_web_app.product;
 
-import org.springframework.stereotype.Component;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-@Component
+@Entity
 public class Product {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
     private String name;
-    private int price;
 
+    @Column(nullable = false)
+    private double price;
+
+    // Default constructor (required by JPA)
     public Product() {
-
     }
 
-    public Product(int id, String name, int price) {
-        this.id = id;
+    // Parameterized constructor
+    public Product(String name, double price) {
         this.name = name;
         this.price = price;
     }
 
-    public int getId() {
-        return this.id;
+    // Getters and Setters
+    public Long getId() {
+        return id;
     }
 
-    public int getPrice() {
-        return this.price;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
-        return this.name;
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", price=" + price
+                + '}';
     }
 }
